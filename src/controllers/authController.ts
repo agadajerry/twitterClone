@@ -7,7 +7,7 @@ import catchAsync from '../utils/catchAsync';
 import ErrorHandler from '../utils/appError';
 import sendEmail from '../utils/email';
 
-const generateToken = (email: string) => {
+export const generateToken = (email: string) => {
   const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY as string, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });

@@ -31,6 +31,7 @@ export const userNewTweet = catchAsync(async (req: any, res: Response, next: Nex
   const { messageBody, whoCanReply } = req.body;
 
   let hashtags = await createHashtag(messageBody);
+
   if (req.file == undefined) {
     let createTweet = new CreateTweetCln({
       userId: req.user._id,

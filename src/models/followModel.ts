@@ -25,6 +25,7 @@ export const createFollowModel = async (userId: string, followerId: string) => {
   const result = await follow.save();
   return result;
 };
+
 /***********************************
  * Method to get all followers
  ***********************************/

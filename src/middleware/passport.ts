@@ -3,6 +3,7 @@ import { Strategy as FBStrategy } from 'passport-facebook';
 import User from '../models/userModels';
 import passport, { PassportStatic, Profile } from 'passport';
 import { Request, Response, NextFunction } from 'express';
+import { generateToken } from './../controllers/authController';
 
 export const googleStrategy = (passport: PassportStatic) =>
   passport.use(
@@ -19,9 +20,11 @@ export const googleStrategy = (passport: PassportStatic) =>
         refreshToken: string,
         params: any,
         profile: any,
-        done: (arg0: null, arg1: string) => void,
+        done: (arg0: null, arg1: any) => void,
       ) => {
-        console.log(profile);
+        accessToken;
+        refreshToken;
+        // console.log(profile, accessToken, refreshToken);
         const newUser = {
           isActive: true,
           email: profile.emails[0].value,
@@ -30,14 +33,21 @@ export const googleStrategy = (passport: PassportStatic) =>
           profilePic: profile.photos ? profile.photos[0].value : null,
           provider: profile.provider,
         };
+
+        // return done(null, newUser);
+
         try {
           let user: any = await User.findOne({ email: profile.emails[0].value });
 
           if (user) {
-            done(null, user);
+            const token = generateToken(user.email);
+            // console.log(user, token);
+            return done(null, { user, token });
           } else {
             user = await User.create(newUser);
-            done(null, user);
+            const token = generateToken(user.email);
+            // console.log({user, token});
+            return done(null, { user, token });
           }
         } catch (err) {
           console.error(err);
@@ -95,6 +105,6 @@ passport.serializeUser((profile, done) => {
   done(null, profile);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err: any, user: any) => done(err, user));
+passport.deserializeUser((profile: typeof User, done) => {
+  done(null, profile);
 });

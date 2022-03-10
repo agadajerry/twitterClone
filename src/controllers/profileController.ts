@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction, response } from 'express';
 import multer from 'multer';
 import catchAsync from '../utils/catchAsync';
-import cloudinary from 'cloudinary';
 import ErrorHandler from '../utils/appError';
 import imageMulter from '../utils/tweet_utils/multerImageUpload';
 import cloudinaryImage from '../utils/tweet_utils/cloudinaryImageStorage';
