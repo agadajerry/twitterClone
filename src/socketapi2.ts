@@ -47,9 +47,9 @@ const Socketapi2 = () => {
     // conversationId, senderId, text, receiverId
 
     socket.on('disconnect', () => {
-    //   console.log('a user disconnected!');
-    //   removeUser(user);
-    //   app.io.emit('getUsers', users);
+      //   console.log('a user disconnected!');
+      //   removeUser(user);
+      //   app.io.emit('getUsers', users);
     });
   });
 };

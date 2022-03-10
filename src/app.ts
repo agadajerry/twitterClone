@@ -46,7 +46,9 @@ app.use(passport.session());
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3002',
+    origin: 'http://localhost:3001',
+
+    
   },
 });
 
