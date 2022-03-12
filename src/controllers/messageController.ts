@@ -20,7 +20,7 @@ export const createMessage = catchAsync(async (req: Request, res: Response, next
 export const getMessages = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const data = await Message.find({ conversationId: req.params.conversationId })
     .sort({
-      createdAt: -1,
+      createdAt: 1,
     })
     .populate('senderId');
   if (!data) {

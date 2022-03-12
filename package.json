@@ -16,7 +16,8 @@
     "eslint:fix": "eslint --fix 'src/**/*.ts'",
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:fix": "prettier --write 'src/**/*.ts'",
-    "fix-style": "yarn prettier:fix -w && yarn compile"
+    "fix-style": "yarn prettier:fix -w && yarn compile",
+    "npmdev": "npm i && npm run tsc -w & nodemon ./bin/www"
     },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",

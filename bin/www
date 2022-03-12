@@ -7,7 +7,7 @@
 const {app, httpServer} = require('../dist/app').default;
 const debug = require('debug')('week-6-task:server');
 const http = require('http');
-const socketapi = require('../dist/socketapi.js').default;
+const socketapi = require('../dist/socketapi2.js').default;
 
 /**
  * Get port from environment and store in Express.

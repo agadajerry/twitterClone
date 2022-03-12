@@ -1,6 +1,10 @@
 import app from './app';
 
 const Socketapi = () => {
+  const test: Record<string, string | undefined> = {
+    'h97cLVS0-IoRdZ81AAAB': '61fd9ad15dd55b8bfdb6d3b9',
+  };
+
   let users: any[] = [];
 
   const addUser = (userId: any, socketId: string) => {
@@ -27,15 +31,16 @@ const Socketapi = () => {
       console.log(userId, socket.id);
     });
 
-    //send and get message
+    //send and get messages
     socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-      const user = getUser(receiverId._id);
+      const user = getUser(receiverId);
       console.log({ user });
       console.log({ senderId, receiverId, text });
       app.io.to(user.socketId!).emit('getMessage', {
         senderId,
         text,
       });
+      console.log({ users });
       console.log(senderId, text);
     });
 
