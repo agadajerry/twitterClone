@@ -30,7 +30,7 @@ const sendEmail = async (email: string, subject: string, message: string) => {
   //2. define the email options
 
   const mailOptions = {
-    from: 'twittaz@outlook.com',
+    from: 'thetwiteeapp@outlook.com',
     to: email,
     subject: subject,
     html: message,
