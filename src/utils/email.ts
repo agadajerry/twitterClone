@@ -5,15 +5,6 @@ const sendEmail = async (email: string, subject: string, message: string) => {
   //1. create a transporter
   if (process.env.NODE_ENV === 'development') {
     transporter = nodemailer.createTransport({
-      host: 'smtp-mail.outlook.com',
-      port: 587,
-      auth: {
-        user: process.env.OUTLOOK_USERNAME,
-        pass: process.env.OUTLOOK_PASSWORD,
-      },
-    });
-  } else if (process.env.NODE_ENV === 'production') {
-    transporter = nodemailer.createTransport({
       host: 'smtp.mailtrap.io',
       port: 2525,
       secure: false,
@@ -24,7 +15,15 @@ const sendEmail = async (email: string, subject: string, message: string) => {
       },
       logger: true,
     });
-
+  } else {
+    transporter = nodemailer.createTransport({
+      host: 'smtp-mail.outlook.com',
+      port: 587,
+      auth: {
+        user: process.env.OUTLOOK_USERNAME,
+        pass: process.env.OUTLOOK_PASSWORD,
+      },
+    });
     //Activate in gmail "less secure app" option
   }
 
