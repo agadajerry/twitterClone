@@ -270,7 +270,7 @@ export const getAllUserTweetNRetweet = catchAsync(async (req: Request, res: Resp
   const otherUserId = req.params.id;
 
   const otherUserReTweetDetail = await CreateRetTweet.find({ reTweeterId: otherUserId }).populate(
-    'tweetId retweeter_name noOfLikes commentCount',
+    'tweetId retweeter_name noOfLikes commentCount userId',
   );
 
   const reTweetsPromises = otherUserReTweetDetail.map(async (item: any) => {
@@ -290,7 +290,7 @@ export const getAllUserTweetNRetweet = catchAsync(async (req: Request, res: Resp
   const reTweets = await Promise.all(reTweetsPromises);
 
   const allOtherUserTweet = await CreateTweetCln.find({ userId: otherUserId }).populate(
-    'noOfLikes commentCount',
+    'noOfLikes commentCount userId',
   );
 
   const tweetsPromises = allOtherUserTweet.map(async (item: any) => {
