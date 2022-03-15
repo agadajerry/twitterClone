@@ -26,8 +26,8 @@ export const getAllBookmarks = catchAsync(
 
     const result = new Paginate(Bookmark.find({ userId }), req.query).sort().paginate();
     const bookmarks = await result.query.populate(
-      'userId tweetId noOfLikes commentCount retweetCount bookmarkCount createdBy allComment',
-    );
+
+      'userId tweetId noOfLikes commentCount retweetCount bookmarkCount createdBy allComment');
     if (!bookmarks) return next(new ErrorHandler(404, 'Error occurred'));
 
     // res.status(200).json({ message: 'All bookmarks', data: bookmarks });

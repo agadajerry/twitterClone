@@ -7,7 +7,7 @@ import catchAsync from '../utils/catchAsync';
 import ErrorHandler from '../utils/appError';
 import sendEmail from '../utils/email';
 
-const generateToken = (email: string) => {
+export const generateToken = (email: string) => {
   const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY as string, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
@@ -29,6 +29,7 @@ export const signup = catchAsync(async (req: Request, res: Response, next: NextF
     email: req.body.email,
     password: req.body.password
   });
+  // console.log(newUser, newUser.email, '***')
 
   const emailToken = generateEmailToken(newUser.email);
   if (process.env.NODE_ENV === 'test') {
@@ -38,27 +39,26 @@ export const signup = catchAsync(async (req: Request, res: Response, next: NextF
       emailToken,
     });
   } else {
-    console.log('******');
-    // sendEmail(
-    //   newUser.email,
-    //   'Email Verification',
-    //   `<p>Hello ${newUser.firstName},</p><p>Thank you for signing up for a Twitter account.
-    //    In order to access your Twitter account,</p>
-    //    Click
-    //    <button><a href= http://localhost:3000/users/verify/${emailToken}>here</a></button>
-    //    to verify your email. Thanks`,
-    // )
-    //   .then(() => {
-    //     console.log('email sent');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // console.log(emailToken);
-    // res.status(200).json({
-    //   status: 'success',
-    //   message: 'Token sent to email',
-    // });
+    sendEmail(
+      newUser.email,
+      'Email Verification',
+      `<p>Hello ${newUser.firstName},</p><p>Thank you for signing up for a Twitter account.
+       In order to access your Twitter account,</p>
+       Click
+       <button><a href= http://localhost:3000/users/verify/${emailToken}>here</a></button>
+       to verify your email. Thanks`,
+    )
+      .then(() => {
+        console.log('email sent');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(emailToken);
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to email',
+    });
   }
 });
 

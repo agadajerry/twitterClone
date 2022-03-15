@@ -1,10 +1,6 @@
 import app from './app';
 
 const Socketapi = () => {
-  const test: Record<string, string | undefined> = {
-    'h97cLVS0-IoRdZ81AAAB': '61fd9ad15dd55b8bfdb6d3b9',
-  };
-
   let users: any[] = [];
 
   const addUser = (userId: any, socketId: string) => {

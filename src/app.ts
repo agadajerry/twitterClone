@@ -46,7 +46,7 @@ app.use(passport.session());
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3002',
+    origin: 'http://localhost:3001',
   },
 });
 
@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'test') {
   connectDB();
 }
 
-console.log(process.env.NODE_ENV);
+console.log({ nodeEnv: process.env.NODE_ENV });
 
 app.use('/', indexRouter);
 app.use('/api/follow', followRoutes);
