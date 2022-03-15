@@ -27,7 +27,7 @@ export const signup = catchAsync(async (req: Request, res: Response, next: NextF
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password
   });
 
   const emailToken = generateEmailToken(newUser.email);
